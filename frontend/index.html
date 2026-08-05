@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAP CPI - Tech Spec Generator</title>
+    <!-- External Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Link to our new external stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <i class="fa-solid fa-layer-group"></i>
+                <h1>CPI <span>Integration Team</span></h1>
+            </div>
+            <p class="subtitle">Automated Technical Specification Document Generator</p>
+        </header>
+
+        <div class="main-container">
+            
+            <!-- Left Column: Instructions -->
+            <aside class="instruction-panel fade-in-up">
+                <h2><i class="fa-solid fa-circle-info"></i> How it works</h2>
+                <ul class="steps">
+                    <li>
+                        <div class="step-icon"><i class="fa-solid fa-file-zipper"></i></div>
+                        <div class="step-text">
+                            <h3>1. Export iFlow</h3>
+                            <p>Download your Integration Flow from SAP CPI as a standard .zip export.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-icon"><i class="fa-solid fa-keyboard"></i></div>
+                        <div class="step-text">
+                            <h3>2. Fill Metadata</h3>
+                            <p>Provide the business context, system details, and version history.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                        <div class="step-text">
+                            <h3>3. Generate</h3>
+                            <p>Our AI engine parses the BPMN XML and builds a formatted Word document.</p>
+                        </div>
+                    </li>
+                </ul>
+            </aside>
+
+            <!-- Right Column: Interactive Form -->
+            <main class="form-panel fade-in-up" style="animation-delay: 0.1s;">
+                <form id="uploadForm">
+                    
+                    <!-- Drag and Drop Zone -->
+                    <div class="drop-zone" id="dropZone">
+                        <i class="fa-solid fa-cloud-arrow-up drop-icon"></i>
+                        <h3>Drag & Drop your iFlow .zip here</h3>
+                        <p>or click to browse files</p>
+                        <input type="file" id="fileInput" name="file" accept=".zip" hidden>
+                        <div class="file-chip" id="fileChip" style="display: none;">
+                            <span id="fileName"></span>
+                        </div>
+                    </div>
+
+                    <!-- Metadata Grid -->
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Integration Package</label>
+                            <input type="text" name="package_name" placeholder="e.g. Procure to Pay Integration">
+                        </div>
+                        <div class="input-group">
+                            <label>Document Version</label>
+                            <input type="text" name="doc_version" placeholder="e.g. 1.0">
+                        </div>
+                        <div class="input-group">
+                            <label>Source System</label>
+                            <input type="text" name="source_system" placeholder="e.g. SAP S/4HANA">
+                        </div>
+                        <div class="input-group">
+                            <label>Target System</label>
+                            <input type="text" name="target_system" placeholder="e.g. Fifth Third Bank">
+                        </div>
+                        <div class="input-group">
+                            <label>Prepared By</label>
+                            <input type="text" name="prepared_by" placeholder="Author Name">
+                        </div>
+                        <div class="input-group">
+                            <label>Reviewed By</label>
+                            <input type="text" name="reviewed_by" placeholder="Reviewer Name">
+                        </div>
+                        <div class="input-group">
+                            <label>Approved By</label>
+                            <input type="text" name="approved_by" placeholder="Approver Name">
+                        </div>
+                        <div class="input-group">
+                            <label>Effective Date</label>
+                            <input type="date" name="effective_date">
+                        </div>
+                        <div class="input-group">
+                            <label>Direction</label>
+                            <select name="direction">
+                                <option>Inbound</option>
+                                <option>Outbound</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Sync / Async</label>
+                            <select name="sync_async">
+                                <option>Synchronous</option>
+                                <option>Asynchronous</option>
+                            </select>
+                        </div>
+                        <div class="input-group full-width">
+                            <label>Brief Description <span>(Appears in Revision History)</span></label>
+                            <textarea rows="2" name="description" placeholder="e.g. Initial Draft for wire payment processing"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="action-footer">
+                        <button type="submit" class="submit-btn" id="submitBtn" disabled>
+                            <i class="fa-solid fa-file-word"></i> Generate Technical Specification
+                        </button>
+                        
+                        <div class="progress-container" id="progressContainer">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                        </div>
+                        
+                        <div id="statusMessage" class="status-message"></div>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+
+    <!-- Link to our new external script -->
+    <script src="script.js"></script>
+</body>
+</html>
